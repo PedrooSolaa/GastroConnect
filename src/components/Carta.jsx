@@ -1,32 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Carta = ({ onCrearRecetaClick }) => {
-  const entrantes = [
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" }
-  ];
+  const [recetas, setRecetas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [likes, setLikes] = useState({});
 
-  const primeros = [
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" }
-  ];
+  useEffect(() => {
+    // Obtener recetas de la API
+    fetch('http://localhost:3001/recetas')
+      .then(response => response.json())
+      .then(data => {
+        setRecetas(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error al cargar recetas:', error);
+        setLoading(false);
+      });
+  }, []);
 
-  const segundos = [
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" }
-  ];
+  // Filtrar recetas por categoría
+  const entrantes = recetas.filter(r => r.categoria === 'entrantes');
+  const primeros = recetas.filter(r => r.categoria === 'primeros');
+  const segundos = recetas.filter(r => r.categoria === 'segundos');
+  const postres = recetas.filter(r => r.categoria === 'postres');
 
-  const postres = [
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" },
-    { nombre: "Nombre del plato (ingredientes)", precio: "Precio €" }
-  ];
+  // Función para manejar likes
+  const toggleLike = (id) => {
+    setLikes(prevLikes => ({
+      ...prevLikes,
+      [id]: !prevLikes[id]
+    }));
+  };
+
+  if (loading) {
+    return (
+      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+        <div className="text-white text-2xl">Cargando carta...</div>
+      </section>
+    );
+  }
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative w-full overflow-x-hidden">
       {/* Imagen de fondo */}
       <img 
         src="/img/img3.jpeg" 
@@ -35,7 +51,7 @@ const Carta = ({ onCrearRecetaClick }) => {
       />
       
       {/* Contenido */}
-      <div className="relative z-10 h-screen flex items-center justify-center px-8 py-24">
+      <div className="relative z-10 w-full min-h-screen flex items-center justify-center px-8 py-24">
         <div className="max-w-7xl w-full bg-black/80 backdrop-blur-sm rounded-2xl p-12">
           {/* Título principal */}
           <h1 className="text-white text-5xl font-bold text-center mb-4">CARTA</h1>
@@ -50,110 +66,42 @@ const Carta = ({ onCrearRecetaClick }) => {
             </button>
           </div>
           
-          <div className="w-full grid grid-cols-2 gap-x-12 gap-y-6">
-            {/* Entrantes - Imagen a la derecha */}
-            <div className="relative">
-              <h2 className="text-gold text-xl font-semibold mb-3">Entrantes</h2>
-              <div className="flex items-center gap-4">
-                <div className="flex-1 bg-gold rounded-[30px] py-4 px-6">
-                  <div className="space-y-2">
-                    {entrantes.map((plato, index) => (
-                      <div key={index} className="flex justify-between items-center text-black text-sm">
-                      <span>{plato.nombre}</span>
-                      <span className="font-semibold">{plato.precio}</span>
-                    </div>
-                  ))}
+          <div className="w-full grid grid-cols-4 gap-6">
+            {recetas.map((plato) => (
+              <div key={plato.id} className="bg-gold rounded-xl overflow-hidden shadow-lg transform transition-all hover:scale-105">
+                {/* Imagen del plato con botón de like */}
+                <div className="relative">
+                  <img 
+                    src={plato.imagen} 
+                    alt={plato.nombre}
+                    className="w-full h-40 object-cover"
+                  />
+                  <button
+                    onClick={() => toggleLike(plato.id)}
+                    className="absolute top-2 right-2 bg-black/70 hover:bg-black rounded-full p-2 transition-all"
+                  >
+                    <span className="text-xl">{likes[plato.id] ? '❤️' : '🤍'}</span>
+                  </button>
+                </div>
+                {/* Contenido del card */}
+                <div className="p-4 bg-black">
+                  <h3 className="text-gold text-lg font-bold mb-2">{plato.nombre}</h3>
+                  <p className="text-white text-xs mb-3">{plato.ingredientes.join(' - ')}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-white font-semibold text-lg">{plato.precio.toFixed(2)} €</span>
+                    <span className="text-gold text-xs font-semibold">{plato.categoria.toUpperCase()}</span>
+                  </div>
                 </div>
               </div>
-              {/* Círculo decorativo */}
-              <div className="w-32 h-32 rounded-full bg-gradient-to-b from-sky-200 to-lime-500 flex-shrink-0 overflow-hidden">
-                <div className="w-full h-2/3 bg-sky-200 relative">
-                  <div className="absolute bottom-0 left-1/4 w-10 h-6 bg-white rounded-full opacity-80"></div>
-                </div>
-                <div className="w-full h-1/3 bg-lime-500"></div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Primeros - Imagen a la derecha */}
-          <div className="relative">
-            <h2 className="text-gold text-xl font-semibold mb-3">Primeros</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex-1 bg-gold rounded-[30px] py-4 px-6">
-                <div className="space-y-2">
-                  {primeros.map((plato, index) => (
-                    <div key={index} className="flex justify-between items-center text-black text-sm">
-                      <span>{plato.nombre}</span>
-                      <span className="font-semibold">{plato.precio}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Círculo decorativo */}
-              <div className="w-32 h-32 rounded-full bg-gradient-to-b from-sky-200 to-lime-500 flex-shrink-0 overflow-hidden">
-                <div className="w-full h-2/3 bg-sky-200 relative">
-                  <div className="absolute bottom-0 left-1/4 w-10 h-6 bg-white rounded-full opacity-80"></div>
-                </div>
-                <div className="w-full h-1/3 bg-lime-500"></div>
-              </div>
-            </div>
+          {/* Puntos decorativos */}
+          <div className="absolute bottom-8 right-8 flex flex-col gap-3">
+            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
           </div>
-
-          {/* Segundos - Imagen a la derecha */}
-          <div className="relative">
-            <h2 className="text-gold text-xl font-semibold mb-3">Segundos</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex-1 bg-gold rounded-[30px] py-4 px-6">
-                <div className="space-y-2">
-                  {segundos.map((plato, index) => (
-                    <div key={index} className="flex justify-between items-center text-black text-sm">
-                      <span>{plato.nombre}</span>
-                      <span className="font-semibold">{plato.precio}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Círculo decorativo */}
-              <div className="w-32 h-32 rounded-full bg-gradient-to-b from-sky-200 to-lime-500 flex-shrink-0 overflow-hidden">
-                <div className="w-full h-2/3 bg-sky-200 relative">
-                  <div className="absolute bottom-0 left-1/4 w-10 h-6 bg-white rounded-full opacity-80"></div>
-                </div>
-                <div className="w-full h-1/3 bg-lime-500"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* Postres - Imagen a la derecha */}
-          <div className="relative">
-            <h2 className="text-gold text-xl font-semibold mb-3">Postres</h2>
-            <div className="flex items-center gap-4">
-              <div className="flex-1 bg-gold rounded-[30px] py-4 px-6">
-                <div className="space-y-2">
-                  {postres.map((plato, index) => (
-                    <div key={index} className="flex justify-between items-center text-black text-sm">
-                      <span>{plato.nombre}</span>
-                      <span className="font-semibold">{plato.precio}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Círculo decorativo */}
-              <div className="w-32 h-32 rounded-full bg-gradient-to-b from-sky-200 to-lime-500 flex-shrink-0 overflow-hidden">
-                <div className="w-full h-2/3 bg-sky-200 relative">
-                  <div className="absolute bottom-0 left-1/4 w-10 h-6 bg-white rounded-full opacity-80"></div>
-                </div>
-                <div className="w-full h-1/3 bg-lime-500"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Puntos decorativos */}
-        <div className="absolute bottom-8 right-8 flex flex-col gap-3">
-          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-          <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-        </div>
         </div>
       </div>
     </section>

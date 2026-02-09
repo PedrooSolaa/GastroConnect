@@ -1,0 +1,114 @@
+{
+  "recetas": [
+    {
+      "id": 1,
+      "nombre": "Paella Valenciana",
+      "categoria": "primeros",
+      "ingredientes": ["arroz", "pollo", "conejo", "judías verdes", "garrofón", "azafrán"],
+      "descripcion": "Auténtica paella valenciana con pollo y conejo",
+      "precio": 18.50,
+      "tiempo": 45,
+      "dificultad": "media",
+      "imagen": "/img/paella.jpeg"
+    },
+    {
+      "id": 2,
+      "nombre": "Risotto de Setas",
+      "categoria": "primeros",
+      "ingredientes": ["arroz arborio", "setas variadas", "caldo de verduras", "parmesano", "vino blanco"],
+      "descripcion": "Cremoso risotto con setas de temporada y parmesano",
+      "precio": 16.00,
+      "tiempo": 35,
+      "dificultad": "media",
+      "imagen": "/img/risoto.jpeg"
+    },
+    {
+      "id": 3,
+      "nombre": "Pulpo a la Gallega",
+      "categoria": "entrantes",
+      "ingredientes": ["pulpo", "patatas", "pimentón", "aceite de oliva", "sal"],
+      "descripcion": "Pulpo tierno sobre cama de patatas con pimentón",
+      "precio": 22.00,
+      "tiempo": 60,
+      "dificultad": "alta",
+      "imagen": "/img/pulpo.jpeg"
+    },
+    {
+      "id": 4,
+      "nombre": "Croquetas de Jamón Ibérico",
+      "categoria": "entrantes",
+      "ingredientes": ["jamón ibérico", "bechamel", "huevo", "pan rallado", "aceite"],
+      "descripcion": "Croquetas caseras de jamón ibérico con bechamel cremosa",
+      "precio": 14.50,
+      "tiempo": 40,
+      "dificultad": "media",
+      "imagen": "/img/croquetas.jpeg"
+    },
+    {
+      "id": 5,
+      "nombre": "Solomillo al Pedro Ximénez",
+      "categoria": "segundos",
+      "ingredientes": ["solomillo de ternera", "vino Pedro Ximénez", "cebolla", "mantequilla", "pimienta"],
+      "descripcion": "Solomillo de ternera en salsa de reducción de Pedro Ximénez",
+      "precio": 26.50,
+      "tiempo": 30,
+      "dificultad": "media",
+      "imagen": "/img/solomillo.jpeg"
+    },
+    {
+      "id": 6,
+      "nombre": "Lubina a la Sal",
+      "categoria": "segundos",
+      "ingredientes": ["lubina fresca", "sal gorda", "limón", "aceite de oliva", "hierbas"],
+      "descripcion": "Lubina salvaje cocinada en costra de sal con guarnición",
+      "precio": 28.00,
+      "tiempo": 45,
+      "dificultad": "alta",
+      "imagen": "/img/lubina.jpeg"
+    },
+    {
+      "id": 7,
+      "nombre": "Tarta de Santiago",
+      "categoria": "postres",
+      "ingredientes": ["almendras molidas", "huevos", "azúcar", "ralladura de limón"],
+      "descripcion": "Tradicional tarta de almendra gallega con cruz de Santiago",
+      "precio": 6.50,
+      "tiempo": 50,
+      "dificultad": "baja",
+      "imagen": "/img/tarta.jpeg"
+    },
+    {
+      "id": 8,
+      "nombre": "Crema Catalana",
+      "categoria": "postres",
+      "ingredientes": ["leche", "yemas de huevo", "azúcar", "maicena", "canela"],
+      "descripcion": "Crema catalana tradicional con costra de azúcar caramelizado",
+      "precio": 5.50,
+      "tiempo": 30,
+      "dificultad": "media",
+      "imagen": "/img/cremacatalana.jpeg"
+    }
+  ],
+  "categorias": [
+    {
+      "id": "entrantes",
+      "nombre": "Entrantes",
+      "descripcion": "Para comenzar tu experiencia gastronómica"
+    },
+    {
+      "id": "primeros",
+      "nombre": "Primeros Platos",
+      "descripcion": "Platos principales de nuestra cocina"
+    },
+    {
+      "id": "segundos",
+      "nombre": "Segundos Platos",
+      "descripcion": "Carnes y pescados elaborados"
+    },
+    {
+      "id": "postres",
+      "nombre": "Postres",
+      "descripcion": "El broche dulce perfecto"
+    }
+  ]
+}

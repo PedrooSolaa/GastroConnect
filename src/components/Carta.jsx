@@ -4,20 +4,21 @@ const Carta = ({ onCrearRecetaClick }) => {
   const [recetas, setRecetas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [likes, setLikes] = useState({});
+  const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
   useEffect(() => {
     // Obtener recetas de la API
-    fetch('http://localhost:3001/recetas')
+    fetch(`${apiBaseUrl}/platos`)
       .then(response => response.json())
       .then(data => {
         setRecetas(data);
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error al cargar recetas:', error);
+        console.error('Error al cargar platos:', error);
         setLoading(false);
       });
-  }, []);
+  }, [apiBaseUrl]);
 
   // Filtrar recetas por categoría
   const entrantes = recetas.filter(r => r.categoria === 'entrantes');
@@ -96,12 +97,6 @@ const Carta = ({ onCrearRecetaClick }) => {
             ))}
           </div>
 
-          {/* Puntos decorativos */}
-          <div className="absolute bottom-8 right-8 flex flex-col gap-3">
-            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-            <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
-          </div>
         </div>
       </div>
     </section>

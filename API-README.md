@@ -1,5 +1,46 @@
 # API de Recetas - GastroConnect
 
+## 🐍 Opción con FastAPI (Python)
+
+Si prefieres usar FastAPI en lugar de `json-server`:
+
+### 1. Crear entorno virtual
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+### 2. Instalar dependencias
+```bash
+pip install -r backend/requirements.txt
+```
+
+### 3. Ejecutar FastAPI
+```bash
+uvicorn backend.main:app --reload --port 8000
+```
+
+### 4. Endpoints de platos
+```
+GET    http://127.0.0.1:8000/platos
+GET    http://127.0.0.1:8000/platos/:id
+POST   http://127.0.0.1:8000/platos
+PUT    http://127.0.0.1:8000/platos/:id
+DELETE http://127.0.0.1:8000/platos/:id
+```
+
+Documentación interactiva: `http://127.0.0.1:8000/docs`
+
+### 5. Conectar el frontend a FastAPI
+
+Crea un archivo `.env` en la raíz del proyecto con:
+
+```bash
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+Después arranca el frontend con `npm run dev`.
+
 ## 🚀 Inicio Rápido
 
 ### 1. Iniciar la API

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = ({ darkMode = false, onLoginClick, onCartaClick, onHomeClick, onResenaClick, onDisponibilidadClick }) => {
+const Navbar = ({ darkMode = false, onLoginClick, onCartaClick, onHomeClick, onResenaClick, onDisponibilidadClick, onAdministracionClick }) => {
   return (
     <header>
       <nav className={`fixed top-0 w-full py-4 pr-4 flex justify-between items-center z-[1000] flex-wrap ${darkMode ? 'bg-black' : 'bg-transparent'}`}>
@@ -42,6 +42,14 @@ const Navbar = ({ darkMode = false, onLoginClick, onCartaClick, onHomeClick, onR
               className="text-white no-underline text-sm font-semibold tracking-[2px] transition-colors hover:text-gold bg-black/70 backdrop-blur-md px-4 py-2 inline-block rounded-full cursor-pointer border-none"
             >
               RESEÑAS
+            </button>
+          </li>
+          <li>
+            <button 
+              onClick={onAdministracionClick}
+              className="text-white no-underline text-sm font-semibold tracking-[2px] transition-colors hover:text-gold bg-black/70 backdrop-blur-md px-4 py-2 inline-block rounded-full cursor-pointer border-none"
+            >
+              ADMINISTRACIÓN
             </button>
           </li>
         </ul>

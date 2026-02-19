@@ -152,3 +152,8 @@ def delete_plato(plato_id: int) -> dict[str, str]:
     _write_db(data)
 
     return {"message": "Plato eliminado"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -7,19 +7,21 @@ import Carta from './components/Carta';
 import SubeReceta from './components/SubeReceta';
 import Resena from './components/Resena';
 import Disponibilidad from './components/Disponibilidad';
+import Administracion from './components/Administracion';
 
 function App() {
-  const [currentView, setCurrentView] = useState('home'); // 'home', 'reserva', 'login', 'carta', 'subereceta', 'resena', 'disponibilidad'
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'reserva', 'login', 'carta', 'subereceta', 'resena', 'disponibilidad', 'administracion'
 
   return (
     <div className="bg-black text-white overflow-x-hidden">
       <Navbar 
-        darkMode={currentView === 'reserva' || currentView === 'carta' || currentView === 'login' || currentView === 'subereceta' || currentView === 'resena' || currentView === 'disponibilidad'} 
+        darkMode={currentView === 'reserva' || currentView === 'carta' || currentView === 'login' || currentView === 'subereceta' || currentView === 'resena' || currentView === 'disponibilidad' || currentView === 'administracion'} 
         onLoginClick={() => setCurrentView('login')}
         onCartaClick={() => setCurrentView('carta')}
         onHomeClick={() => setCurrentView('home')}
         onResenaClick={() => setCurrentView('resena')}
         onDisponibilidadClick={() => setCurrentView('disponibilidad')}
+        onAdministracionClick={() => setCurrentView('administracion')}
       />
       
       {currentView === 'home' && (
@@ -48,6 +50,10 @@ function App() {
       
       {currentView === 'disponibilidad' && (
         <Disponibilidad />
+      )}
+      
+      {currentView === 'administracion' && (
+        <Administracion />
       )}
     </div>
   );
